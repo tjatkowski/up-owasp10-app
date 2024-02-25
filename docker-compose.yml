@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: up-owasp10-app:${VERSION:-latest}
+    volumes:
+      - .:/rails
+    environment:
+      RAILS_ENV: "development"
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+
+  db:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    volumes:
+      - ./storage/postgres:/var/lib/postgresql/data
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_PASSWORD: owasp10
+      POSTGRES_USER: owasp10
+      POSTGRES_DB: owasp10
