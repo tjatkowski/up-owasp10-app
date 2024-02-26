@@ -9,7 +9,7 @@ WORKDIR /rails
 
 # Set production environment
 ENV RAILS_ENV="production" \
-    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_PATH="/usr/local/bundle"
 
 
 # Throw-away build stage to reduce size of final image
