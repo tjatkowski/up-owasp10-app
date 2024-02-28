@@ -1,0 +1,10 @@
+%h1 Resources
+= form_with model: @resource do |f|
+  = f.text_field :key
+  = f.text_field :value
+  = f.submit "Create"
+
+= form_with scope: :search, url: search_resources_url, method: :post do |f|
+  = f.text_field :key
+  = f.submit 'Search'
+= render 'resources', { resources: @resources }
