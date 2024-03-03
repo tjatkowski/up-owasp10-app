@@ -68,3 +68,5 @@ end
 
 gem "devise", "~> 4.9"
 gem "haml-rails"
+
+gem "strong_password", "~> 0.0.10"
