@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :resources do
     post :search, on: :collection
+    post :fetch, on: :collection
   end
 
   # Defines the root path route ("/")

@@ -22,7 +22,32 @@ class ResourcesController < UserController
     render 'resources'
   end
 
+  def fetch
+    url = fetch_param[:url]
+
+    fetch_and_insert(url)
+
+    @resources = Resource.all
+    render 'resources'
+  end
+
   private
+
+  def fetch_and_insert(url)
+    uri = URI.parse(url)
+
+    return unless %w[http https].include?(uri.scheme)
+    return unless %w[www.youtube.com youtube.com].include?(uri.host)
+    return unless uri.path == '/watch'
+
+    # Here should be some HTTP request
+    Resource.create(key: 'youtube', value: uri.query)
+  end
+
+  def fetch_param
+    params.require(:resource).permit(:url)
+
+  end
 
   def search_param
     params.require(:search).permit(:key)
